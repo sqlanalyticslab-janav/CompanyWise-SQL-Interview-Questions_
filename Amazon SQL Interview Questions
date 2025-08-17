@@ -1,15 +1,13 @@
-# 🛒 Amazon Interview Question
+                                                                      # 🛒 𝐀𝐦𝐚𝐳𝐨𝐧 𝐈𝐧𝐭𝐞𝐫𝐯𝐢𝐞𝐰 𝐐𝐮𝐞𝐬𝐭𝐢𝐨𝐧𝐬
 
-## 📌 Problem Statement
+## 📌 𝐏𝐫𝐨𝐛𝐥𝐞𝐦 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭
 
 /*
-Q1: Identify customers who made purchases on exactly three
-different days in the last month.
+𝐐𝟏: 𝐈𝐝𝐞𝐧𝐭𝐢𝐟𝐲 𝐜𝐮𝐬𝐭𝐨𝐦𝐞𝐫𝐬 𝐰𝐡𝐨 𝐦𝐚𝐝𝐞 𝐩𝐮𝐫𝐜𝐡𝐚𝐬𝐞𝐬 𝐨𝐧 𝐞𝐱𝐚𝐜𝐭𝐥𝐲 𝐭𝐡𝐫𝐞𝐞
+𝐝𝐢𝐟𝐟𝐞𝐫𝐞𝐧𝐭 𝐝𝐚𝐲𝐬 𝐢𝐧 𝐭𝐡𝐞 𝐥𝐚𝐬𝐭 𝐦𝐨𝐧𝐭𝐡.
 */ 
 
-Tables: purchases (customer_id, purchase_date)
-
-## 📊 Sample Data
+## 𝐏𝐮𝐫𝐜𝐡𝐚𝐬𝐞𝐬 𝐓𝐚𝐛𝐥𝐞
 CREATE TABLE Purchases (
     PurchaseID INT PRIMARY KEY,
     CustomerID INT,
@@ -17,6 +15,7 @@ CREATE TABLE Purchases (
     Amount DECIMAL(10, 2)
 );
 
+## 𝐏𝐮𝐫𝐜𝐡𝐚𝐬𝐞𝐬 𝐒𝐚𝐦𝐩𝐥𝐞 𝐃𝐚𝐭𝐚
 INSERT INTO Purchases (PurchaseID, CustomerID, PurchaseDate, Amount) 
 VALUES
 (1, 101, '2025-05-01', 200.00),(2, 101, '2025-05-02', 150.00),
@@ -30,14 +29,437 @@ VALUES
 (17, 106, '2025-04-28', 300.00),
 (18, 106, '2025-06-01', 200.00);
 
-## ✅ Expected Output
-| CustomerID |
+## ✅ 𝐄𝐱𝐩𝐞𝐜𝐭𝐞𝐝 𝐎𝐮𝐭𝐩𝐮𝐭
+
+| 𝐂𝐮𝐬𝐭𝐨𝐦𝐞𝐫𝐈𝐃 |
 |------------|
 | 101        |
 | 102        |
 | 105        |
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## 📌 𝐏𝐫𝐨𝐛𝐥𝐞𝐦 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭
 
+/* 𝐐𝟐) 
+𝐅𝐢𝐧𝐝 𝐭𝐡𝐞 𝐭𝐨𝐩 𝟐 𝐡𝐢𝐠𝐡𝐞𝐬𝐭-𝐬𝐞𝐥𝐥𝐢𝐧𝐠 𝐩𝐫𝐨𝐝𝐮𝐜𝐭𝐬 𝐟𝐨𝐫 𝐞𝐚𝐜𝐡 𝐜𝐚𝐭𝐞𝐠𝐨𝐫𝐲.
+*/
+
+## 𝐂𝐚𝐭𝐞𝐠𝐨𝐫𝐢𝐞𝐬 𝐓𝐚𝐛𝐥𝐞
+CREATE TABLE Categories (
+    CategoryID INT PRIMARY KEY,
+    CategoryName VARCHAR(50)
+);
+
+## 𝐂𝐚𝐭𝐞𝐠𝐨𝐫𝐢𝐞𝐬 𝐒𝐚𝐦𝐩𝐥𝐞 𝐃𝐚𝐭𝐚 
+INSERT INTO Categories (CategoryID, CategoryName) VALUES
+(1, 'Electronics'),
+(2, 'Clothing'),
+(3, 'Groceries');
+
+## 𝐏𝐫𝐨𝐝𝐮𝐜𝐭𝐬 𝐓𝐚𝐛𝐥𝐞
+CREATE TABLE Products (
+    ProductID INT PRIMARY KEY,
+    ProductName VARCHAR(50),
+    CategoryID INT,
+    FOREIGN KEY (CategoryID) REFERENCES Categories(CategoryID)
+);
+
+## 𝐏𝐫𝐨𝐝𝐮𝐜𝐭𝐬 𝐒𝐚𝐦𝐩𝐥𝐞 𝐃𝐚𝐭𝐚
+INSERT INTO Products (ProductID, ProductName, CategoryID) VALUES
+(1, 'Laptop', 1),(2, 'Smartphone', 1),
+(3, 'Headphones', 1),(4, 'T-shirt', 2),
+(5, 'Jeans', 2),(6, 'Jacket', 2),
+(7, 'Rice', 3),(8, 'Wheat Flour', 3),
+(9, 'Sugar', 3);
+
+## 𝐒𝐚𝐥𝐞𝐬 𝐓𝐚𝐛𝐥𝐞 
+CREATE TABLE Sales (
+    SaleID INT PRIMARY KEY,
+    ProductID INT,
+    Quantity INT,
+    Price DECIMAL(10,2),
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+);
+
+## 𝐒𝐚𝐥𝐞𝐬 𝐒𝐚𝐦𝐩𝐥𝐞 𝐃𝐚𝐭𝐚 
+INSERT INTO Sales (SaleID, ProductID, Quantity, Price) VALUES
+(1, 1, 5, 50000.00), (2, 2, 10, 30000.00),  (3, 3, 15, 2000.00),   
+(4, 4, 20, 500.00), (5, 5, 15, 1500.00),(6, 6, 10, 3000.00),  
+(7, 7, 50, 80.00), (8, 8, 60, 50.00),    
+(9, 9, 40, 60.00); 
+
+## ✅ 𝐄𝐱𝐩𝐞𝐜𝐭𝐞𝐝 𝐎𝐮𝐭𝐩𝐮𝐭
+
+| 𝐂𝐚𝐭𝐞𝐠𝐨𝐫𝐲𝐧𝐚𝐦𝐞     | 𝐏𝐫𝐨𝐝𝐮𝐜𝐭𝐧𝐚𝐦𝐞     | 𝐓𝐨𝐭𝐚𝐥_𝐀𝐦𝐨𝐮𝐧𝐭|
+|------------------|----------------- |-----------|
+| Clothing         | Jacket           | 30000.00  |
+| Clothing         | Jeans            | 22500.00  |
+| Electronics      | Smartphone       | 300000.00 |
+| Electronics      | Laptop           | 250000.00 |
+| Groceries        | Rice             | 4000.00   |
+| Groceries        | Wheat Flour      | 3000.00   |
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## 📌 𝐏𝐫𝐨𝐛𝐥𝐞𝐦 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭
+
+/* 𝐐𝟑)
+𝐃𝐞𝐭𝐞𝐜𝐭 𝐚𝐧𝐨𝐦𝐚𝐥𝐢𝐞𝐬 𝐰𝐡𝐞𝐫𝐞 𝐬𝐚𝐥𝐞𝐬 𝐟𝐨𝐫 𝐚 𝐩𝐫𝐨𝐝𝐮𝐜𝐭 𝐚𝐫𝐞 𝟓𝟎% 𝐥𝐨𝐰𝐞𝐫 𝐭𝐡𝐚𝐧 𝐭𝐡𝐞 𝐚𝐯𝐞𝐫𝐚𝐠𝐞 𝐟𝐨𝐫
+𝐭𝐡𝐚𝐭 𝐩𝐫𝐨𝐝𝐮𝐜𝐭
+*/
+
+## 𝐏𝐫𝐨𝐝𝐮𝐜𝐭𝐬 𝐓𝐚𝐛𝐥𝐞
+CREATE TABLE Products_ (
+    ProductID INT PRIMARY KEY,
+    ProductName VARCHAR(50)
+);
+
+## 𝐒𝐚𝐦𝐩𝐥𝐞 𝐏𝐫𝐨𝐝𝐮𝐜𝐭𝐬 𝐃𝐚𝐭𝐚
+INSERT INTO Products_ (ProductID, ProductName) VALUES
+(1, 'Smartphone'),
+(2, 'Laptop'),
+(3, 'Tablet');
+
+## 𝐒𝐚𝐥𝐞𝐬_𝐃𝐚𝐭𝐚 𝐓𝐚𝐛𝐥𝐞
+CREATE TABLE Sales_Data (
+    SaleID INT PRIMARY KEY,
+    ProductID INT,
+    SaleDate DATE,
+    SaleAmount DECIMAL(10,2)
+);
+
+## 𝐒𝐚𝐦𝐩𝐥𝐞 𝐒𝐚𝐥𝐞𝐬_𝐃𝐚𝐭𝐚 
+INSERT INTO Sales_Data (SaleID, ProductID, SaleDate, SaleAmount) VALUES
+(1, 1, '2025-06-01', 21000),   (2, 1, '2025-06-05', 20000),    
+(3, 1, '2025-06-10', 19000),   (4, 1, '2025-06-15', 9000),
+(5, 2, '2025-06-01', 50000),   (6, 2, '2025-06-07', 45000),    
+(7, 2, '2025-06-20', 34000),   (8, 2, '2025-06-25', 20000),
+(9, 3, '2025-06-03', 15000),   (10, 3, '2025-06-08', 15500),   
+(11, 3, '2025-06-13', 14500),  (12, 3, '2025-06-18', 6000);   
+
+## ✅ 𝐄𝐱𝐩𝐞𝐜𝐭𝐞𝐝 𝐎𝐮𝐭𝐩𝐮𝐭
+
+|  𝐩𝐫𝐨𝐝𝐮𝐜𝐭𝐢𝐝 | 𝐩𝐫𝐨𝐝𝐮𝐜𝐭𝐧𝐚𝐦𝐞 | 𝐬𝐚𝐥𝐞𝐬𝐚𝐦𝐨𝐮𝐧𝐭 | 𝐚𝐯𝐠_𝐬𝐚𝐥𝐞𝐬    |
+|-----------|-------------|-------------|--------------|
+| 3         | Tablet      | 6000.00     | 12750.000000 |
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## 📌 𝐏𝐫𝐨𝐛𝐥𝐞𝐦 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭
+
+/* 𝐐𝟒)
+𝐅𝐢𝐧𝐝 𝐞𝐦𝐩𝐥𝐨𝐲𝐞𝐞𝐬 𝐰𝐡𝐨 𝐡𝐚𝐯𝐞 𝐧𝐞𝐯𝐞𝐫 𝐛𝐞𝐞𝐧 𝐚 𝐦𝐚𝐧𝐚𝐠𝐞𝐫 𝐚𝐧𝐝 𝐡𝐚𝐯𝐞 𝐰𝐨𝐫𝐤𝐞𝐝 𝐢𝐧 𝐦𝐨𝐫𝐞
+𝐭𝐡𝐚𝐧 𝐨𝐧𝐞 𝐝𝐞𝐩𝐚𝐫𝐭𝐦𝐞𝐧𝐭.
+*/
+
+## 𝐄𝐦𝐩𝐥𝐨𝐲𝐞𝐞𝐬 𝐓𝐚𝐛𝐥𝐞 
+CREATE TABLE Employees (
+    EmpID INT PRIMARY KEY,
+    EmpName VARCHAR(50)
+);
+
+## 𝐒𝐚𝐦𝐩𝐥𝐞 𝐄𝐦𝐩𝐥𝐨𝐲𝐞𝐞𝐬 𝐃𝐚𝐭𝐚
+INSERT INTO Employees VALUES
+(1, 'Alice'),(2, 'Bob'),
+(3, 'Charlie'),(4, 'David'),
+(5, 'Eve');
+
+## 𝐃𝐞𝐩𝐚𝐫𝐭𝐦𝐞𝐧𝐭 𝐓𝐚𝐛𝐥𝐞
+CREATE TABLE Departments_Data (
+    DeptID INT PRIMARY KEY,
+    DeptName VARCHAR(50)
+);
+
+## 𝐒𝐚𝐦𝐩𝐥𝐞 𝐃𝐞𝐩𝐚𝐫𝐭𝐦𝐞𝐧𝐭 𝐃𝐚𝐭𝐚
+INSERT INTO Departments_Data VALUES
+(101, 'HR'),
+(102, 'Finance'),
+(103, 'IT');
+
+## 𝐄𝐦𝐩 𝐃𝐞𝐩𝐭 𝐓𝐚𝐛𝐥𝐞
+CREATE TABLE Emp_Dept (
+    EmpID INT,
+    DeptID INT,
+    FromDate DATE,
+    ToDate DATE,
+    FOREIGN KEY (EmpID) REFERENCES Employees(EmpID),
+    FOREIGN KEY (DeptID) REFERENCES Departments_Data(DeptID)
+);
+
+## 𝐒𝐚𝐦𝐩𝐥𝐞 𝐄𝐦𝐩 𝐃𝐞𝐩𝐭 𝐃𝐚𝐭𝐚 
+INSERT INTO Emp_Dept VALUES
+(1, 101, '2021-01-01', '2022-01-01'),(1, 102, '2022-02-01', '2023-01-01'),
+(2, 101, '2021-05-01', '2022-06-01'),(3, 103, '2022-01-01', '2023-01-01'),
+(3, 101, '2023-02-01', '2024-01-01'),(4, 102, '2021-01-01', '2023-01-01'),
+(5, 103, '2021-01-01', '2023-01-01');
+
+## 𝐌𝐚𝐧𝐚𝐠𝐞𝐫𝐬 𝐓𝐚𝐛𝐥𝐞
+CREATE TABLE Managers (
+    EmpID INT PRIMARY KEY,
+    DeptID INT,
+    FOREIGN KEY (EmpID) REFERENCES Employees(EmpID),
+    FOREIGN KEY (DeptID) REFERENCES Departments_Data(DeptID)
+);
+
+## 𝐒𝐚𝐦𝐩𝐥𝐞 𝐌𝐚𝐧𝐚𝐠𝐞𝐫𝐬 𝐃𝐚𝐭𝐚 
+INSERT INTO Managers VALUES
+(2, 101),
+(5, 103);
+
+
+## ✅ 𝐄𝐱𝐩𝐞𝐜𝐭𝐞𝐝 𝐎𝐮𝐭𝐩𝐮𝐭
+
+| 𝐄𝐦𝐩𝐥𝐨𝐲𝐞𝐞𝐈𝐃 | 𝐄𝐦𝐩𝐥𝐨𝐲𝐞𝐞𝐍𝐚𝐦𝐞|
+|------------|--------------|
+| 1          | Alice        |
+| 3          | Charlie      |
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## 📌 𝐏𝐫𝐨𝐛𝐥𝐞𝐦 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭
+
+/*
+𝐐𝟓: 𝐈𝐝𝐞𝐧𝐭𝐢𝐟𝐲 𝐜𝐮𝐬𝐭𝐨𝐦𝐞𝐫𝐬 𝐰𝐡𝐨 𝐩𝐮𝐫𝐜𝐡𝐚𝐬𝐞𝐝 𝐩𝐫𝐨𝐝𝐮𝐜𝐭𝐬 𝐟𝐫𝐨𝐦 𝐚𝐥𝐥 𝐚𝐯𝐚𝐢𝐥𝐚𝐛𝐥𝐞 𝐜𝐚𝐭𝐞𝐠𝐨𝐫𝐢𝐞𝐬.
+*/
+
+## 𝐂𝐚𝐭𝐞𝐠𝐨𝐫𝐲 𝐓𝐚𝐛𝐥𝐞:- 
+CREATE TABLE Categories_Data_ ( 
+CategoryID INT PRIMARY KEY,
+ CategoryName VARCHAR(50) );
+
+## 𝐂𝐚𝐭𝐞𝐠𝐨𝐫𝐲 𝐒𝐚𝐦𝐩𝐥𝐞 𝐃𝐚𝐭𝐚:- 
+INSERT INTO Categories_Data_
+VALUES (1, 'Electronics'),
+(2, 'Books'),
+(3, 'Clothing');
+ 
+## 𝐏𝐫𝐨𝐝𝐮𝐜𝐭𝐬 𝐓𝐚𝐛𝐥𝐞:- 
+CREATE TABLE Products_Data_ ( 
+ProductID INT PRIMARY KEY,
+ ProductName VARCHAR(100), 
+CategoryID INT FOREIGN KEY REFERENCES Categories_Data_(CategoryID) );
+ 
+## 𝐏𝐫𝐨𝐝𝐮𝐜𝐭𝐬 𝐒𝐚𝐦𝐩𝐥𝐞 𝐃𝐚𝐭𝐚 :- 
+INSERT INTO Products_Data_
+VALUES 
+(1, 'Laptop', 1),(2, 'Smartphone', 1),(3, 'Novel', 2),(4, 'T-Shirt', 3),
+(5, 'Jeans', 3),(6, 'Textbook', 2);
+
+## 𝐂𝐮𝐬𝐭𝐨𝐦𝐞𝐫𝐬 𝐓𝐚𝐛𝐥𝐞:- 
+CREATE TABLE Customers_ ( 
+CustomerID INT PRIMARY KEY,
+ CustomerName VARCHAR(100)
+);
+
+## 𝐂𝐮𝐬𝐭𝐨𝐦𝐞𝐫𝐬 𝐒𝐚𝐦𝐩𝐥𝐞 𝐃𝐚𝐭𝐚:- 
+INSERT INTO Customers_ 
+VALUES (101, 'Alice'), 
+(102, 'Bob'),
+(103, 'Charlie');
+ 
+## 𝐏𝐮𝐫𝐜𝐡𝐚𝐬𝐞 𝐓𝐚𝐛𝐥𝐞:- 
+CREATE TABLE Purchases_data_ (
+ PurchaseID INT PRIMARY KEY,
+ CustomerID INT FOREIGN KEY REFERENCES Customers(CustomerID),
+ ProductID INT FOREIGN KEY REFERENCES Products_Data(ProductID),
+ PurchaseDate DATE
+);
+
+## 𝐏𝐮𝐫𝐜𝐡𝐚𝐬𝐞 𝐒𝐚𝐦𝐩𝐥𝐞 𝐃𝐚𝐭𝐚:- 
+INSERT INTO Purchases_data_
+VALUES
+(1, 101, 1, '2024-01-10'), (2, 101, 3, '2024-01-12'), 
+(3, 101, 4, '2024-01-15'),  (4, 102, 1, '2024-02-10'), 
+(5, 102, 3, '2024-02-12'),  (6, 103, 4, '2024-03-10'), 
+(7, 103, 6, '2024-03-12'),  (8, 103, 2, '2024-03-14');
+
+
+## ✅ 𝐄𝐱𝐩𝐞𝐜𝐭𝐞𝐝 𝐎𝐮𝐭𝐩𝐮𝐭
+
++-------------+--------------+
+| 𝐂𝐮𝐬𝐭𝐨𝐦𝐞𝐫𝐈𝐃  |𝐂𝐮𝐬𝐭𝐨𝐦𝐞𝐫𝐍𝐚𝐦𝐞|
++-------------+--------------+
+| 101         | Alice        |
+| 103         | Charlie      |
++-------------+--------------+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## 📌 𝐏𝐫𝐨𝐛𝐥𝐞𝐦 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭
+
+/*
+𝐐𝟔: 𝐂𝐚𝐥𝐜𝐮𝐥𝐚𝐭𝐞 𝐭𝐡𝐞 𝐜𝐮𝐦𝐮𝐥𝐚𝐭𝐢𝐯𝐞 𝐬𝐚𝐥𝐞𝐬 𝐟𝐨𝐫 𝐞𝐚𝐜𝐡 𝐬𝐭𝐨𝐫𝐞, 𝐛𝐮𝐭 𝐨𝐧𝐥𝐲 
+𝐢𝐧𝐜𝐥𝐮𝐝𝐞 𝐝𝐚𝐭𝐞𝐬 𝐰𝐡𝐞𝐫𝐞 𝐭𝐡𝐞 𝐝𝐚𝐢𝐥𝐲 𝐬𝐚𝐥𝐞𝐬 𝐞𝐱𝐜𝐞𝐞𝐝𝐞𝐝 𝐭𝐡𝐞 𝐬𝐭𝐨𝐫𝐞'𝐬 𝐚𝐯𝐞𝐫𝐚𝐠𝐞 𝐝𝐚𝐢𝐥𝐲 𝐬𝐚𝐥𝐞𝐬.
+*/
+
+## 𝐒𝐚𝐥𝐞𝐬 𝐓𝐚𝐛𝐥𝐞
+CREATE TABLE Sales_Data_ (
+    Store_ID INT,
+    Sale_Date DATE,
+    Daily_Sales INT
+);
+
+## 𝐒𝐚𝐦𝐩𝐥𝐞 𝐒𝐚𝐥𝐞𝐬 𝐃𝐚𝐭𝐚
+INSERT INTO Sales_Data_ (Store_ID, Sale_Date, Daily_Sales) VALUES
+(1, '2024-06-01', 1000),(1, '2024-06-02', 1200),(1, '2024-06-03', 800),
+(1, '2024-06-04', 1500),(2, '2024-06-01', 500),
+(2, '2024-06-02', 700),(2, '2024-06-03', 900),
+(2, '2024-06-04', 400);
+
+## ✅ 𝐄𝐱𝐩𝐞𝐜𝐭𝐞𝐝 𝐎𝐮𝐭𝐩𝐮𝐭
++----------+------------+-------------+-------------+
+| 𝐬𝐭𝐨𝐫𝐞_𝐢𝐝  | 𝐬𝐚𝐥𝐞_𝐝𝐚𝐭𝐞   | 𝐝𝐚𝐢𝐥𝐲_𝐬𝐚𝐥𝐞𝐬  | 𝐜𝐮𝐦𝐦𝐮_𝐬𝐮𝐦 |
++----------+------------+-------------+-------------+
+|    1     | 2024-06-02 |    1200     |    1200     |
+|    1     | 2024-06-04 |    1500     |    2700     |
+|    2     | 2024-06-02 |     700     |     700     |
+|    2     | 2024-06-03 |     900     |    1600     |
++----------+------------+-------------+-------------+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## 📌 𝐏𝐫𝐨𝐛𝐥𝐞𝐦 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭
+
+/*
+𝐐𝟕: 𝐋𝐢𝐬𝐭 𝐞𝐦𝐩𝐥𝐨𝐲𝐞𝐞𝐬 𝐰𝐡𝐨 𝐞𝐚𝐫𝐧 𝐦𝐨𝐫𝐞 𝐭𝐡𝐚𝐧 𝐭𝐡𝐞𝐢𝐫 𝐝𝐞𝐩𝐚𝐫𝐭𝐦𝐞𝐧𝐭 𝐚𝐯𝐞𝐫𝐚𝐠𝐞.
+*/
+
+## 𝐃𝐞𝐩𝐚𝐫𝐭𝐦𝐞𝐧𝐭 𝐓𝐚𝐛𝐥𝐞:- 
+CREATE TABLE Departments_ (
+    DeptID INT PRIMARY KEY,
+    DeptName VARCHAR(50)
+);
+
+## 𝐃𝐞𝐩𝐚𝐫𝐭𝐞𝐦𝐞𝐧𝐭 𝐒𝐚𝐦𝐩𝐥𝐞 𝐃𝐚𝐭𝐚 
+INSERT INTO Departments_ (DeptID, DeptName) VALUES
+(1, 'IT'),
+(2, 'HR'),
+(3, 'Finance');
+
+## 𝐄𝐦𝐩𝐥𝐨𝐲𝐞𝐞𝐬 𝐓𝐚𝐛𝐥𝐞:- 
+CREATE TABLE Employees_Data (
+    EmpID INT PRIMARY KEY,
+    EmpName VARCHAR(50),
+    Salary INT,
+    DeptID INT,
+    FOREIGN KEY (DeptID) REFERENCES Departments(DeptID)
+);
+
+## 𝐄𝐦𝐩𝐥𝐨𝐲𝐞𝐞𝐬 𝐒𝐚𝐦𝐩𝐥𝐞 𝐃𝐚𝐭𝐚:- 
+INSERT INTO Employees_Data (EmpID, EmpName, Salary, DeptID) VALUES
+(101, 'Alice', 70000, 1),(102, 'Bob', 80000, 1),
+(103, 'Charlie', 60000, 1),(104, 'David', 40000, 2),
+(105, 'Eve', 50000, 2),(106, 'Frank', 90000, 3),
+(107, 'Grace', 85000, 3),
+(108, 'Hank', 75000, 3);
+
+## ✅ 𝐄𝐱𝐩𝐞𝐜𝐭𝐞𝐝 𝐎𝐮𝐭𝐩𝐮𝐭
++------------+--------------+--------+---------+
+|  𝐞𝐦𝐩𝐥𝐨𝐲𝐞𝐞𝐈𝐃| 𝐞𝐦𝐩𝐥𝐨𝐲𝐞𝐞𝐧𝐚𝐦𝐞| 𝐬𝐚𝐥𝐚𝐫𝐲 |𝐝𝐞𝐩𝐭_𝐢𝐝|
++------------+--------------+--------+---------+
+|    102     |     Bob      | 80000  |    1    |
+|    105     |     Eve      | 50000  |    2    |
+|    106     |    Frank     | 90000  |    3    |
+|    107     |    Grace     | 85000  |    3    |
++------------+--------------+--------+---------+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## 📌 𝐏𝐫𝐨𝐛𝐥𝐞𝐦 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭
+
+/*
+𝐐𝟖: 𝐈𝐝𝐞𝐧𝐭𝐢𝐟𝐲 𝐩𝐫𝐨𝐝𝐮𝐜𝐭𝐬 𝐭𝐡𝐚𝐭 𝐡𝐚𝐯𝐞 𝐛𝐞𝐞𝐧 𝐬𝐨𝐥𝐝 𝐛𝐮𝐭 𝐡𝐚𝐯𝐞 𝐧𝐨 𝐫𝐞𝐜𝐨𝐫𝐝 𝐢𝐧 𝐭𝐡𝐞 𝐩𝐫𝐨𝐝𝐮𝐜𝐭𝐬 𝐭𝐚𝐛𝐥𝐞
+𝐚𝐧𝐝 𝐚𝐥𝐬𝐨 𝐜𝐚𝐥𝐜𝐮𝐥𝐚𝐭𝐞 𝐡𝐨𝐰 𝐦𝐚𝐧𝐲 𝐭𝐢𝐦𝐞𝐬 𝐞𝐚𝐜𝐡 𝐦𝐢𝐬𝐬𝐢𝐧𝐠 𝐩𝐫𝐨𝐝𝐮𝐜𝐭 𝐡𝐚𝐬 𝐛𝐞𝐞𝐧 𝐬𝐨𝐥𝐝.
+*/
+
+## 𝐏𝐫𝐨𝐝𝐮𝐜𝐭𝐬 𝐃𝐞𝐭𝐚𝐢𝐥𝐬 𝐓𝐚𝐛𝐥𝐞
+CREATE TABLE Products_details (
+    ProductID INT PRIMARY KEY,
+    ProductName VARCHAR(50)
+);
+
+## 𝐏𝐫𝐨𝐝𝐮𝐜𝐭𝐬 𝐃𝐞𝐭𝐚𝐢𝐥𝐬 𝐒𝐚𝐦𝐩𝐥𝐞 𝐃𝐚𝐭𝐚 
+INSERT INTO Products_details (ProductID, ProductName) VALUES
+(1, 'Smartphone'),
+(2, 'Laptop'),
+(3, 'Tablet');
+
+## 𝐒𝐚𝐥𝐞𝐬 𝐃𝐞𝐭𝐚𝐢𝐥𝐬 𝐓𝐚𝐛𝐥𝐞
+CREATE TABLE Sales_details (
+    SaleID INT PRIMARY KEY,
+    ProductID INT,
+    SaleDate DATE,
+    SaleAmount DECIMAL(10,2)
+);
+
+## 𝐒𝐚𝐥𝐞𝐬 𝐃𝐞𝐭𝐚𝐢𝐥𝐬 𝐒𝐚𝐦𝐩𝐥𝐞 𝐃𝐚𝐭𝐚 
+INSERT INTO Sales_details (SaleID, ProductID, SaleDate, SaleAmount) VALUES
+(101, 1, '2024-06-01', 15000.00),
+(102, 4, '2024-06-02', 20000.00),  
+(103, 5, '2024-06-03', 30000.00),  
+(104, 4, '2024-06-04', 20000.00),
+(105, 1, '2024-06-05', 15000.00),
+(106, 5, '2024-06-06', 30000.00),
+(107, 2, '2024-06-07', 25000.00);
+
+## ✅ 𝐄𝐱𝐩𝐞𝐜𝐭𝐞𝐝 𝐎𝐮𝐭𝐩𝐮𝐭
++-----------------+--------------------------+
+| 𝐒𝐨𝐥𝐝_𝐩𝐫𝐨𝐝𝐮𝐜𝐭𝐈𝐃  | 𝐌𝐢𝐬𝐬𝐢𝐧𝐠_𝐏𝐫𝐨𝐝𝐮𝐜𝐭_𝐒𝐚𝐥𝐞_𝐜𝐧𝐭   |
++-----------------+--------------------------+
+|        4        |            2             |
+|        5        |            2             |
++-----------------+--------------------------+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## 📌 𝐏𝐫𝐨𝐛𝐥𝐞𝐦 𝐒𝐭𝐚𝐭𝐞𝐦𝐞𝐧𝐭
+
+/*
+𝐐𝟗: 𝐈𝐝𝐞𝐧𝐭𝐢𝐟𝐲 𝐬𝐮𝐩𝐩𝐥𝐢𝐞𝐫𝐬 𝐰𝐡𝐨𝐬𝐞 𝐚𝐯𝐞𝐫𝐚𝐠𝐞 𝐝𝐞𝐥𝐢𝐯𝐞𝐫𝐲 𝐭𝐢𝐦𝐞 𝐢𝐬 𝐥𝐞𝐬𝐬
+𝐭𝐡𝐚𝐧 𝟐 𝐝𝐚𝐲𝐬, 𝐛𝐮𝐭 𝐨𝐧𝐥𝐲 𝐜𝐨𝐧𝐬𝐢𝐝𝐞𝐫 𝐝𝐞𝐥𝐢𝐯𝐞𝐫𝐢𝐞𝐬 𝐰𝐢𝐭𝐡 𝐪𝐮𝐚𝐧𝐭𝐢𝐭𝐢𝐞𝐬 𝐠𝐫𝐞𝐚𝐭𝐞𝐫 𝐭𝐡𝐚𝐧 𝟏𝟎𝟎 𝐮𝐧𝐢𝐭𝐬.
+*/
+
+## 𝐒𝐮𝐩𝐩𝐥𝐢𝐞𝐫𝐬 𝐃𝐚𝐭𝐚 𝐓𝐚𝐛𝐥𝐞 :- 
+CREATE TABLE Suppliers_Data (
+    SupplierID INT PRIMARY KEY,
+    SupplierName VARCHAR(100)
+);
+
+## 𝐒𝐮𝐩𝐩𝐥𝐢𝐞𝐫𝐬 𝐒𝐚𝐦𝐩𝐥𝐞 𝐃𝐚𝐭𝐚 :-
+INSERT INTO Suppliers_Data (SupplierID, SupplierName)
+VALUES 
+(1, 'Alpha Supplies'),
+(2, 'Beta Traders'),
+(3, 'Gamma Distributors'),
+(4, 'Delta Logistics');
+
+## 𝐃𝐞𝐥𝐢𝐯𝐞𝐫𝐢𝐞𝐬 𝐓𝐚𝐛𝐥𝐞:-
+CREATE TABLE Deliveries (
+    DeliveryID INT PRIMARY KEY,
+    SupplierID INT,
+    OrderDate DATE,
+    DeliveryDate DATE,
+    Quantity INT,
+    FOREIGN KEY (SupplierID) REFERENCES Suppliers_Data(SupplierID)
+);
+
+## 𝐃𝐞𝐥𝐢𝐯𝐞𝐫𝐢𝐞𝐬 𝐒𝐚𝐦𝐩𝐥𝐞 𝐃𝐚𝐭𝐚 :-
+INSERT INTO Deliveries (DeliveryID, SupplierID, OrderDate, DeliveryDate, Quantity)
+VALUES 
+(101, 1, '2024-06-01', '2024-06-02', 120),(102, 1, '2024-06-03', '2024-06-05', 80),    
+(103, 1, '2024-06-05', '2024-06-06', 150),(104, 2, '2024-06-02', '2024-06-05', 200),   
+(105, 2, '2024-06-04', '2024-06-06', 110),(106, 3, '2024-06-03', '2024-06-04', 130),  
+(107, 3, '2024-06-06', '2024-06-08', 140), (108, 4, '2024-06-07', '2024-06-08', 90),    
+(109, 4, '2024-06-09', '2024-06-12', 160); 
+
+
+## ✅ 𝐄𝐱𝐩𝐞𝐜𝐭𝐞𝐝 𝐎𝐮𝐭𝐩𝐮𝐭
++------------+-------------------+
+| 𝐒𝐮𝐩𝐩𝐥𝐢𝐞𝐫𝐈𝐃  | 𝐒𝐮𝐩𝐩𝐥𝐢𝐞𝐫𝐍𝐚𝐦𝐞      |
++------------+-------------------+
+| 1          | Alpha Supplies    |
+| 3          | Gamma Distributors|
++------------+-------------------+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
