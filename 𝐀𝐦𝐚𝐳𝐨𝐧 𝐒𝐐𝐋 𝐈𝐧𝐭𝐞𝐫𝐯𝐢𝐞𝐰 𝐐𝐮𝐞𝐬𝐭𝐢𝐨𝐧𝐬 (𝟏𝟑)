@@ -327,13 +327,13 @@ INSERT INTO Sales_Data_ (Store_ID, Sale_Date, Daily_Sales) VALUES
 */
 
 ## 𝐃𝐞𝐩𝐚𝐫𝐭𝐦𝐞𝐧𝐭 𝐓𝐚𝐛𝐥𝐞:- 
-CREATE TABLE Departments_ (
+CREATE TABLE Departments (
     DeptID INT PRIMARY KEY,
     DeptName VARCHAR(50)
 );
 
 ## 𝐃𝐞𝐩𝐚𝐫𝐭𝐞𝐦𝐞𝐧𝐭 𝐒𝐚𝐦𝐩𝐥𝐞 𝐃𝐚𝐭𝐚 
-INSERT INTO Departments_ (DeptID, DeptName) VALUES
+INSERT INTO Departments (DeptID, DeptName) VALUES
 (1, 'IT'),
 (2, 'HR'),
 (3, 'Finance');
